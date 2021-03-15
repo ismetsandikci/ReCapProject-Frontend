@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-3 mt-3">
+    <app-brand></app-brand>
+    <app-color></app-color>
+  </div>
+  <div class="col-md-9 mt-9">
+    <span class="d-block p-2 bg-primary text-white">Araçlar</span>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Marka</th>
+          <th scope="col">Model</th>
+          <th scope="col">Renk</th>
+          <th scope="col">Model Yılı</th>
+          <th scope="col">Ücret</th>
+          <th scope="col">Açıklama</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let car of carsDetail">
+          <th scope="row">{{ car.carId }}</th>
+          <td>{{ car.brandName }}</td>
+          <td>{{ car.modelName }}</td>
+          <td>{{ car.colorName }}</td>
+          <td>{{ car.modelYear }}</td>
+          <td>{{ car.dailyPrice }}</td>
+          <td>{{ car.description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

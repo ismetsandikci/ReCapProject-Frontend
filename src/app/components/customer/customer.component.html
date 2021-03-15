@@ -1,0 +1,21 @@
+<span class="d-block p-2 bg-primary text-white">Müşteriler</span>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Ad</th>
+      <th scope="col">Soyad</th>
+      <th scope="col">Email</th>
+      <th scope="col">Şirket Adı</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let customersDetail of customersDetails">
+      <th scope="row">{{ customersDetail.customerId }}</th>
+      <td>{{ customersDetail.firstName }}</td>
+      <td>{{ customersDetail.lastName }}</td>
+      <td>{{ customersDetail.email }}</td>
+      <td>{{ customersDetail.companyName }}</td>
+    </tr>
+  </tbody>
+</table>

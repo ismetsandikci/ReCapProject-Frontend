@@ -1,0 +1,16 @@
+<form>
+  <div class="mb-3">
+    <span class="d-block p-2 bg-dark text-white">Markalar</span>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let brand of brands">
+        <input
+          class="form-check-input me-1"
+          type="checkbox"
+          value="{{ brand.brandId }}"
+          aria-label="..."
+        />
+        {{ brand.brandName }}
+      </li>
+    </ul>
+  </div>
+</form>

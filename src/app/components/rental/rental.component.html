@@ -1,0 +1,30 @@
+<span class="d-block p-2 bg-primary text-white">Kiralanan Araçlar</span>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Marka</th>
+        <th scope="col">Model</th>
+        <th scope="col">Yılı</th>
+        <th scope="col">Ücret</th>
+        <th scope="col">Müşteri</th>
+        <th scope="col">Şirket Adı</th>
+        <th scope="col">Kiralama Tarihi</th>
+        <th scope="col">Teslim Tarihi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rental of rentals">
+        <th scope="row">{{ rental.rentalId }}</th>
+          <td>{{ rental.brandName }}</td>
+          <td>{{ rental.modelName }}</td>
+          <td>{{ rental.modelYear }}</td>
+          <td>{{ rental.dailyPrice }}</td>
+          <td>{{ rental.userName }}</td>
+          <td>{{ rental.customerName }}</td>
+          <td>{{ rental.rentDate }}</td>
+          <td>{{ rental.returnDate }}</td>
+      </tr>
+    </tbody>
+  </table>
+

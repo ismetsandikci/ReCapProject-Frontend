@@ -1,0 +1,16 @@
+<form>
+  <div class="mb-3">
+    <span class="d-block p-2 bg-dark text-white">Renkler</span>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let color of colors">
+        <input
+          class="form-check-input me-1"
+          type="checkbox"
+          value="{{ color.colorId }}"
+          aria-label="..."
+        />
+        {{ color.colorName }}
+      </li>
+    </ul>
+  </div>
+</form>
