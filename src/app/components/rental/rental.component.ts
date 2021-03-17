@@ -9,6 +9,7 @@ import { RentalService } from 'src/app/services/rental.service';
 })
 export class RentalComponent implements OnInit {
 
+  dataLoaded = false;
   rentals: Rental[] = [];
 
   constructor(private rentalService:RentalService) { }
@@ -20,6 +21,7 @@ export class RentalComponent implements OnInit {
   getRentals() {
     this.rentalService.getRentals().subscribe(response=>{
       this.rentals = response.data
+      this.dataLoaded = true;
     })
   }
 }

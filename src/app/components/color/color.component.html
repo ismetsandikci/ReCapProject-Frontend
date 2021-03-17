@@ -1,13 +1,23 @@
 <form>
   <div class="mb-3">
     <span class="d-block p-2 bg-dark text-white">Renkler</span>
-    <ul class="list-group">
+
+    <div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+
+    <ul class="list-group" *ngIf="dataLoaded==true">
+      <li class="list-group-item">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+          (click)="clearCurrentColor()"
+          [checked]="getAllColorClass"
+        />
+          Tüm Renkler
+      </li>
       <li class="list-group-item" *ngFor="let color of colors">
-        <input
-          class="form-check-input me-1"
-          type="checkbox"
-          value="{{ color.colorId }}"
-          aria-label="..."
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" 
+          (click)="setCurrentColor(color)"
+          [checked]="getCurrentColorClass(color)"
         />
         {{ color.colorName }}
       </li>

@@ -9,6 +9,7 @@ import { CustomerService } from 'src/app/services/customer.service';
 })
 export class CustomerComponent implements OnInit {
 
+  dataLoaded = false;
   customersDetails: Customer[] = [];
 
   constructor(private customerService:CustomerService) { }
@@ -20,6 +21,7 @@ export class CustomerComponent implements OnInit {
   getCustomersDetails() {
     this.customerService.getCustomersDetails().subscribe(response=>{
       this.customersDetails = response.data
+      this.dataLoaded = true;
     })
   }
 }

@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="container-fliud">
+    <div class="wrapper row">
+      <div class="preview col-md-6">
+        <div class="preview-pic tab-content">
+          <div class="tab-pane active" id="1">
+            <img
+              src="{{ carImageUrl }}"
+              (click)="chooseOtherPhotoByImageUrl(carImageUrl)"
+            />
+          </div>
+        </div>
+        <ul class="preview-thumbnail nav nav-tabs">
+          <li *ngFor="let carImage of carImages">
+            <a data-target="#{{ carImage.carImageId }}" data-toggle="tab">
+              <img
+                src="{{ carImageUrlDefault }}{{ carImage.imagePath }}"
+                (click)="setParentImage(carImage)"
+              />
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="details col-md-6" *ngFor="let car of carD">
+        <h3 class="product-title">{{ car.brandName }} {{ car.modelName }}</h3>
+        <h5 class="sizes">
+          Model Yılı: <span> {{ car.modelYear }}</span>
+        </h5>
+        <h5 class="sizes">
+          Renk: <span>{{ car.colorName }}</span>
+        </h5>
+        <h5 class="price">
+          Ücret: <span>{{ car.dailyPrice }}</span
+          >&#x20BA;
+        </h5>
+        <h5 class="product-description">Açıklama: {{ car.description }}</h5>
+        <div class="action">
+          <button class="add-to-cart btn btn-default" type="button">
+            Kirala
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

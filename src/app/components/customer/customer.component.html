@@ -1,21 +1,57 @@
-<span class="d-block p-2 bg-primary text-white">Müşteriler</span>
-<table class="table">
+<div class="panel-footer text-center">
+  <span class="d-block p-1 bg-primary text-white" style="margin-top: 10px"
+    ><h5>Müşteriler</h5></span
+  >
+</div>
+
+<div
+  *ngIf="dataLoaded == false"
+  class="spinner-border text-primary"
+  role="status"
+>
+  <span class="visually-hidden">Loading...</span>
+</div>
+
+<table
+  *ngIf="dataLoaded == true"
+  id="example"
+  class="table table-striped table-bordered"
+  cellspacing="0"
+  width="100%"
+>
   <thead>
     <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Ad</th>
-      <th scope="col">Soyad</th>
-      <th scope="col">Email</th>
-      <th scope="col">Şirket Adı</th>
+      <th>Id</th>
+      <th>Ad</th>
+      <th>Soyad</th>
+      <th>Email</th>
+      <th>Şirket Adı</th>
+      <th style="text-align: center; width: 100px">
+        <button
+          type="button"
+          data-func="dt-add"
+          class="btn btn-success btn-xs dt-add"
+        >
+          <span class="glyphicon glyphicon-plus" aria-hidden="true">Ekle</span>
+        </button>
+      </th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let customersDetail of customersDetails">
-      <th scope="row">{{ customersDetail.customerId }}</th>
+      <td>{{ customersDetail.customerId }}</td>
       <td>{{ customersDetail.firstName }}</td>
       <td>{{ customersDetail.lastName }}</td>
       <td>{{ customersDetail.email }}</td>
       <td>{{ customersDetail.companyName }}</td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-primary btn-xs"
+          style="margin-right: 16px"
+        ></button>
+        <button type="button" class="btn btn-danger btn-xs"></button>
+      </td>
     </tr>
   </tbody>
 </table>
