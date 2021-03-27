@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Brand } from 'src/app/models/brand';
+import { Filters } from 'src/app/models/filters';
 import { BrandService } from 'src/app/services/brand.service';
 
 @Component({
@@ -11,12 +12,17 @@ import { BrandService } from 'src/app/services/brand.service';
 export class BrandComponent implements OnInit {
   
   dataLoaded = false;
+
   brands: Brand[] = [];
-  currentBrand : Brand | null;
+
+  currentBrand : Brand;
+  allBrand?: Brand;
+  Filters = {};
 
   constructor(
     private brandService: BrandService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -30,29 +36,14 @@ export class BrandComponent implements OnInit {
     });
   }
 
-  setCurrentBrand(brand:Brand){
-    this.currentBrand=brand;
-    this.router.navigate(['cars/'], { queryParams: { brandId: this.currentBrand.brandId }, queryParamsHandling: 'merge'});
-  }
+  setCurrentBrand(){
+    this.currentBrand !== undefined
+      ? (Filters.brandId = this.currentBrand.brandId)
+      : (Filters.brandId = null);
+  } 
+  
+  allBrandSelected(){
+    return this.currentBrand == undefined ? true : false;
+  } 
 
-  getCurrentBrandClass(brand: Brand) {
-    if (brand == this.currentBrand) {
-      return 'checked';
-    } else {
-      return null;
-    }
-  }
-
-  getAllBrandClass(){
-    if(!this.currentBrand){
-      return 'checked';
-    } else {
-      return null;
-    }
-  }
-
-  clearCurrentBrand(){
-    this.currentBrand = null;
-    this.router.navigate(['cars/'], { queryParams: { brandId: undefined }, queryParamsHandling: 'merge'});
-  }
 }

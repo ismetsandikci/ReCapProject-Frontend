@@ -6,21 +6,10 @@
       <span class="visually-hidden">Loading...</span>
     </div>
 
-    <ul class="list-group" *ngIf="dataLoaded==true">
-      <li class="list-group-item">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
-          (click)="clearCurrentColor()"
-          [checked]="getAllColorClass"
-        />
-          Tüm Renkler
-      </li>
-      <li class="list-group-item" *ngFor="let color of colors">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" 
-          (click)="setCurrentColor(color)"
-          [checked]="getCurrentColorClass(color)"
-        />
-        {{ color.colorName }}
-      </li>
-    </ul>
+    <select [(ngModel)]="currentColor" (change)="setCurrentColor()" name="colorSelect" class="form-select mb-1" aria-label="Default select example" >
+      <option [selected]="allColorsSelected()" [ngValue]="allColor">Tüm Renkler</option>
+      <option *ngFor="let color of colors" [ngValue]="color"> {{ color.colorName }} </option>
+    </select>
+
   </div>
 </form>

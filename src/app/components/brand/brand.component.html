@@ -5,22 +5,11 @@
     <div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
+    
+    <select (change)="setCurrentBrand()" [(ngModel)]="currentBrand" name="brandSelect" class="form-select" aria-label="Markalar">
+      <option [ngValue]="allBrand" [selected]="allBrandSelected()" >Tüm Markalar</option>
+      <option [ngValue]="brand" *ngFor="let brand of brands" >{{ brand.brandName }}</option>
+    </select>
 
-    <ul class="list-group" *ngIf="dataLoaded==true">
-      <li class="list-group-item">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
-          (click)="clearCurrentBrand()"
-          [checked]="getAllBrandClass"
-        />
-          Tüm Markalar
-      </li>
-      <li class="list-group-item" *ngFor="let brand of brands">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
-          (click)="setCurrentBrand(brand)"
-          [checked]="getCurrentBrandClass(brand)"
-        />
-          {{ brand.brandName }}
-      </li>
-    </ul>
   </div>
 </form>

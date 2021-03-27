@@ -1,11 +1,7 @@
-<div class="list-group">
-  <a href="/car" class="list-group-item list-group-item-action active" aria-current="true"
-    >Araçlar</a
-  >
-  <a href="/customer" class="list-group-item list-group-item-action bg-light"
-    >Müşteriler</a
-  >
-  <a href="/rental" class="list-group-item list-group-item-action bg-light"
-    >Kiralanan Araçlar</a
-  >
+<app-brand></app-brand>
+<app-color></app-color>
+
+<div class="card-footer text-muted d-flex justify-content-md-between">
+    <button class="btn btn-success" (click)="setRoute()" >Filtrele</button>
+    <button class="btn btn-danger" (click)="clearRoute()" >Temizle</button>
 </div>

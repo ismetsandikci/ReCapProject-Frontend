@@ -1,7 +1,6 @@
 <div class="row">
   <div class="col-md-3 mt-3">
-    <app-brand></app-brand>
-    <app-color></app-color>
+    <app-sidebar></app-sidebar>
   </div>
 
   <div class="col-md-9 mt-9">
@@ -10,12 +9,17 @@
       <span class="visually-hidden">Loading...</span>
     </div>
 
-    <div class="alert alert-danger d-inline-flex p-2" role="alert" *ngIf="checkIfCarNull == true">
-      Yapılan seçimlere uygun araç bulunamadı!
-    </div>
-
     <div class="row">
-      <div class="card " style="width: 18rem" *ngFor="let car of cars">
+      <div class="col-md-6 mt-6 mt-3" >
+        <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Arama" maxlength="30">
+      </div>
+      <div *ngIf="filterText.length>2" class="col-md-6 mt-6 mt-3 p-1 alert alert-success">
+        <i class="fas fa-search"></i>"{{filterText}}" Arama sonucu
+      </div>
+    </div>
+    
+    <div class="row" *ngIf="(cars | carFilterPipe:filterText) as carFilterResult">
+      <div class="card " style="width: 18rem" *ngFor="let car of carFilterResult">
         <img src="{{ car.previewImagePath }}" class="card-img-top" alt="{{ car.carId }}" />
         <div class="card-body">
           <ul class="list-group list-group-flush">
@@ -23,7 +27,7 @@
             <li class="list-group-item text-center">{{ car.modelName }}</li>
             <li class="list-group-item text-center">{{ car.colorName }}</li>
             <li class="list-group-item text-center">{{ car.modelYear }}</li>
-            <li class="list-group-item text-center">{{ car.dailyPrice }} &#x20BA;</li>
+            <li class="list-group-item text-center">{{ car.dailyPrice | currency:"₺"  }}</li>
           </ul>
         </div>
         <div class="card-body d-grid gap-2 col-6 mx-auto">
@@ -32,6 +36,10 @@
           </button>
         </div>
       </div>
+      <div *ngIf="dataLoaded == true && (carFilterResult.length === 0 || checkIfCarNull == true)" class="alert alert-danger d-inline-flex p-2" role="alert" >
+        Yapılan aramaya uygun araç bulunamadı!
+      </div>
     </div>
+    
   </div>
 </div>

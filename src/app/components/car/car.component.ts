@@ -14,6 +14,8 @@ export class CarComponent implements OnInit {
   dataLoaded = false;
   checkIfCarNull = false;
 
+  filterText="";
+
   cars: Car[]=[];
   carImages: CarImage[] = [];
 
@@ -26,7 +28,7 @@ export class CarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe((params) => {
+    this.activatedRoute.params.subscribe((params) => {
       if (params['brandId'] && params['colorId']) {
         this.getCarsByBrandAndColorId(params['brandId'], params['colorId']);
       } else if (params['brandId']) {
@@ -42,7 +44,7 @@ export class CarComponent implements OnInit {
   getCarsAll() {
     this.carService.getCarsAll().subscribe((response) => {
       this.cars = response.data;
-      this.dataLoaded = true;
+      this.dataLoaded = response.success;
       this.setPreviewImages(this.cars);
 
       if(this.cars.length==0){
@@ -57,7 +59,7 @@ export class CarComponent implements OnInit {
   getCarsDetails() {
     this.carService.getCarsDetails().subscribe((response) => {
       this.cars = response.data;
-      this.dataLoaded = true;
+      this.dataLoaded = response.success;
       this.setPreviewImages(this.cars);
 
       if(this.cars.length==0){
@@ -72,7 +74,7 @@ export class CarComponent implements OnInit {
   getById(carId: number) {
     this.carService.getById(carId).subscribe((response) => {
       this.cars = response.data;
-      this.dataLoaded = true;
+      this.dataLoaded = response.success;
       this.setPreviewImages(this.cars);
 
       if(this.cars.length==0){
@@ -87,7 +89,7 @@ export class CarComponent implements OnInit {
   getCarsByBrandId(brandId: number) {
     this.carService.getCarsByBrandId(brandId).subscribe((response) => {
       this.cars = response.data;
-      this.dataLoaded = true;
+      this.dataLoaded = response.success;
       this.setPreviewImages(this.cars);
 
       if(this.cars.length==0){
@@ -102,7 +104,7 @@ export class CarComponent implements OnInit {
   getCarsByColorId(colorId: number) {
     this.carService.getCarsByColorId(colorId).subscribe((response) => {
       this.cars = response.data;
-      this.dataLoaded = true;
+      this.dataLoaded = response.success;
       this.setPreviewImages(this.cars);
 
       if(this.cars.length==0){
@@ -119,7 +121,7 @@ export class CarComponent implements OnInit {
       .getCarsByBrandAndColorId(brandId, colorId)
       .subscribe((response) => {
         this.cars = response.data;
-        this.dataLoaded = true;
+        this.dataLoaded = response.success;
         this.setPreviewImages(this.cars);
         
         if(this.cars.length==0){

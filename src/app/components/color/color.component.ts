@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Color } from 'src/app/models/color';
+import { Filters } from 'src/app/models/filters';
 import { ColorService } from 'src/app/services/color.service';
 
 @Component({
@@ -13,10 +14,13 @@ export class ColorComponent implements OnInit {
   dataLoaded = false;
   colors: Color[] = [];
   currentColor : Color | null;
+  allColor?: Color;
+  Filters = {brandId: '', colorId: ''};
 
   constructor(
     private colorService:ColorService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -30,29 +34,13 @@ export class ColorComponent implements OnInit {
     })
   }
 
-  setCurrentColor(color:Color){
-    this.currentColor=color;
-    this.router.navigate(['cars/'], { queryParams: { colorId: this.currentColor.colorId }, queryParamsHandling: 'merge'});
+  setCurrentColor() {
+    this.currentColor !== undefined
+      ? (Filters.colorId = this.currentColor.colorId)
+      : (Filters.colorId = null);
+  }
+  allColorsSelected() {
+    return this.currentColor == undefined ? true : false;
   }
 
-  getCurrentColorClass(color: Color) {
-    if (color == this.currentColor) {
-      return 'checked';
-    } else {
-      return null;
-    }
-  }
-
-  getAllColorClass(){
-    if(!this.currentColor){
-      return 'checked';
-    } else {
-      return null;
-    }
-  }
-
-  clearCurrentColor(){
-    this.currentColor = null;
-    this.router.navigate(['cars/'], { queryParams: { colorId: undefined }, queryParamsHandling: 'merge'});
-  }
 }
