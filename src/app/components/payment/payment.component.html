@@ -18,21 +18,21 @@
             </div>
             <form>
               <span>Kart Üzerindeki İsim:</span>
-              <input id="cardName" name="cardName" [(ngModel)]="cardName" placeholder="Ad Soyad" required/>
+              <input type="text" id="cardName" name="cardName" [(ngModel)]="cardName" placeholder="Ad Soyad" required/>
               <span>Kart Numarası:</span>
-              <input id="cardNumber" name="cardNumber" [(ngModel)]="cardNumber" placeholder="0000 0000 0000 0000" pattern="(?=.*[0-9]).{8,}"  />
+              <input type="text" id="cardNumber" name="cardNumber" [(ngModel)]="cardNumber" placeholder="0000 0000 0000 0000" pattern="(?=.*[0-9]).{8,}"  />
               <div class="row">
                 <div class="col-4">
                   <span>Son Kullanma Tarihi:</span> 
-                  <input id="cardDateMonth" name="cardDateMonth" [(ngModel)]="cardDateMonth" placeholder="Ay" required/>
+                  <input type="number" id="cardDateMonth" name="cardDateMonth" [(ngModel)]="cardDateMonth" placeholder="Ay" required/>
                 </div>
                 <div class="col-4">
                 <br>
-                  <input id="cardDateYear" name="cardDateYear" [(ngModel)]="cardDateYear" placeholder="Yıl" required/>
+                  <input type="number" id="cardDateYear" name="cardDateYear" [(ngModel)]="cardDateYear" placeholder="Yıl" required/>
                 </div>
                 <div class="col-4">
                     <span>CVV:</span> 
-                    <input id="cardCvv" name="cardCvv" [(ngModel)]="cardCvv" placeholder="CVV" required/>
+                    <input type="number" id="cardCvv" name="cardCvv" [(ngModel)]="cardCvv" placeholder="CVV" required/>
                 </div>
               </div>
             </form>

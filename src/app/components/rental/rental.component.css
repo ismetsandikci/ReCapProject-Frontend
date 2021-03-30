@@ -2,7 +2,10 @@
     height: 100%;
 }
 
-
 td:last-child {
     text-align:center;
+}
+
+.formButton{
+    padding: 0.1em 0.4em;
 }

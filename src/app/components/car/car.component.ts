@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Car } from 'src/app/models/car';
+import { CarDto } from 'src/app/models/carDto';
 import { CarImage } from 'src/app/models/carImage';
 import { CarImageService } from 'src/app/services/car-image.service';
 import { CarService } from 'src/app/services/car.service';
@@ -16,7 +16,7 @@ export class CarComponent implements OnInit {
 
   filterText="";
 
-  cars: Car[]=[];
+  cars: CarDto[]=[];
   carImages: CarImage[] = [];
 
   carImageUrl: string = this.carImageService.apiImagesURL;
@@ -133,7 +133,7 @@ export class CarComponent implements OnInit {
       });
   }
 
-  setPreviewImages(arabalar:Car[]){
+  setPreviewImages(arabalar:CarDto[]){
     arabalar.forEach(car => {
       this.carImageService.getImagesByCarId(car.carId).subscribe((response) => {
         car.previewImagePath = this.carImageUrl +  "" + response.data[0].imagePath;

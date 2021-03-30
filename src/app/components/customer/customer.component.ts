@@ -21,7 +21,7 @@ export class CustomerComponent implements OnInit {
   getCustomersDetails() {
     this.customerService.getCustomersDetails().subscribe(response=>{
       this.customersDetails = response.data;
-      this.dataLoaded = true;
+      this.dataLoaded = response.success;
     })
   }
 }

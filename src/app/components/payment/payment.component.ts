@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Car } from 'src/app/models/car';
+import { CarDto } from 'src/app/models/carDto';
 import { Payment } from 'src/app/models/payment';
 import { Rental } from 'src/app/models/rental';
 import { CarService } from 'src/app/services/car.service';
@@ -15,7 +15,7 @@ import { RentalService } from 'src/app/services/rental.service';
 })
 export class PaymentComponent implements OnInit {
 
-  carDetail: Car[]=[];
+  carDetail: CarDto[]=[];
   carToBeRented:Rental;
   payment:Payment;
 

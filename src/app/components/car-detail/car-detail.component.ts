@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Car } from 'src/app/models/car';
+import { CarDto } from 'src/app/models/carDto';
 import { CarImage } from 'src/app/models/carImage';
 import { CarService } from 'src/app/services/car.service';
 import { CarImageService } from 'src/app/services/car-image.service';
@@ -18,7 +18,7 @@ import { RentalService } from 'src/app/services/rental.service';
 })
 export class CarDetailComponent implements OnInit {
   carImages: CarImage[] = [];
-  carD: Car[] = [];
+  carD: CarDto[] = [];
 
   carImageUrlDefault: string = this.carImageService.apiImagesURL;
   carImageUrl: string = '';
@@ -109,7 +109,7 @@ export class CarDetailComponent implements OnInit {
     });
   }
 
-  createRentalRequest(car: Car) {
+  createRentalRequest(car: CarDto) {
     if (this.customerId === undefined) {
       this.toastrService.warning('Müşteri bilgisini kontrol ediniz.');
     } else if (this.rentDate === undefined || !this.rentDate) {

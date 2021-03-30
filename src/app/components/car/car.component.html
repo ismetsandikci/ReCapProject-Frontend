@@ -1,45 +1,56 @@
-<div class="row">
-  <div class="col-md-3 mt-3">
-    <app-sidebar></app-sidebar>
-  </div>
-
-  <div class="col-md-9 mt-9">
-
-    <div *ngIf="dataLoaded == false" class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-
+<div class="content">
+  <div class="col-md-12">
     <div class="row">
-      <div class="col-md-6 mt-6 mt-3" >
-        <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Arama" maxlength="30">
+      <div class="col-md-3 mt-3">
+        <app-sidebar></app-sidebar>
       </div>
-      <div *ngIf="filterText.length>2" class="col-md-6 mt-6 mt-3 p-1 alert alert-success">
-        <i class="fas fa-search"></i>"{{filterText}}" Arama sonucu
+    
+      <div class="col-md-9 mt-9">
+    
+        <div *ngIf="dataLoaded == false" class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+    
+        <div class="row">
+          <div class="col-md-6 mt-6 mt-3" >
+            <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Arama" maxlength="30">
+          </div>
+          <div *ngIf="filterText.length>2" class="col-md-6 mt-6 mt-3 p-1 alert alert-success">
+            <i class="fas fa-search"></i>"{{filterText}}" Arama sonucu
+          </div>
+        </div>
+        
+        <div class="row" *ngIf="(cars | carFilterPipe:filterText) as carFilterResult">
+          <div class="card " style="width: 18rem" *ngFor="let car of carFilterResult">
+            <img src="{{ car.previewImagePath }}" class="card-img-top" alt="{{ car.carId }}" />
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item text-center">{{ car.brandName }}</li>
+                <li class="list-group-item text-center">{{ car.modelName }}</li>
+                <li class="list-group-item text-center">{{ car.colorName }}</li>
+                <li class="list-group-item text-center">{{ car.modelYear }}</li>
+                <li class="list-group-item text-center">{{ car.dailyPrice | currency:"₺"  }}</li>
+              </ul>
+              <div class="gap-2 mx-auto" style="margin-top: 5px;">
+                <section style="float: left">
+                  <button type="button" routerLink="/carupdate/{{ car.carId }}" class="btn btn-primary text-center" >
+                    Güncelle
+                  </button>
+                </section>
+                <section style="float: right">
+                  <button type="button" routerLink="/cardetails/{{ car.carId }}" class="btn btn-dark text-center" >
+                    Ayrıntılar
+                  </button>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="dataLoaded == true && (carFilterResult.length === 0 || checkIfCarNull == true)" class="alert alert-danger d-inline-flex p-2" role="alert" >
+            Yapılan aramaya uygun araç bulunamadı!
+          </div>
+        </div>
       </div>
     </div>
-    
-    <div class="row" *ngIf="(cars | carFilterPipe:filterText) as carFilterResult">
-      <div class="card " style="width: 18rem" *ngFor="let car of carFilterResult">
-        <img src="{{ car.previewImagePath }}" class="card-img-top" alt="{{ car.carId }}" />
-        <div class="card-body">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item text-center">{{ car.brandName }}</li>
-            <li class="list-group-item text-center">{{ car.modelName }}</li>
-            <li class="list-group-item text-center">{{ car.colorName }}</li>
-            <li class="list-group-item text-center">{{ car.modelYear }}</li>
-            <li class="list-group-item text-center">{{ car.dailyPrice | currency:"₺"  }}</li>
-          </ul>
-        </div>
-        <div class="card-body d-grid gap-2 col-6 mx-auto">
-          <button type="button" routerLink="/cardetails/{{ car.carId }}" class="btn btn-dark text-center" >
-            Ayrıntılar
-          </button>
-        </div>
-      </div>
-      <div *ngIf="dataLoaded == true && (carFilterResult.length === 0 || checkIfCarNull == true)" class="alert alert-danger d-inline-flex p-2" role="alert" >
-        Yapılan aramaya uygun araç bulunamadı!
-      </div>
-    </div>
-    
   </div>
 </div>
+

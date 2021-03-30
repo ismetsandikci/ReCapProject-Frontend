@@ -15,27 +15,37 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a
-            routerLink="/cars"
-            class="nav-link"
-            >Araçlar</a
-          >
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Araçlar
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" routerLink="/cars">Araç Listesi</a></li>
+            <li><a class="dropdown-item" routerLink="/cars/add">Araç Ekle</a></li>
+          </ul>
         </li>
         <li class="nav-item">
-          <a
-            routerLink="/customers"
-            class="nav-link"
-            >Müşteriler</a
-          >
-          </li><li>
-          <a
-            routerLink="/rentals"
-            class="nav-link"
-            >Kiralanan Araçlar</a
-          >
+          <a routerLink="/customers" class="nav-link" >Müşteriler</a >
+          </li>
+        <li>
+          <a routerLink="/rentals" class="nav-link" >Kiralanan Araçlar</a>
         </li>
-
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Marka İşlemleri
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" routerLink="/brandList">Marka Listesi</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Renk İşlemleri
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" routerLink="/colorList">Renk Listesi</a></li>
+          </ul>
+        </li>
       </ul>
       <form class="d-flex">
         <input
