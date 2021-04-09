@@ -22,6 +22,9 @@
         
         <div class="row" *ngIf="(cars | carFilterPipe:filterText) as carFilterResult">
           <div class="card " style="width: 18rem" *ngFor="let car of carFilterResult">
+            <div class="circleBase type text-center" title="Minimum Findeks Score">
+              <p> {{car.minFindeksScore}} </p>
+            </div>
             <img src="{{ car.previewImagePath }}" class="card-img-top" alt="{{ car.carId }}" />
             <div class="card-body">
               <ul class="list-group list-group-flush">
@@ -32,7 +35,7 @@
                 <li class="list-group-item text-center">{{ car.dailyPrice | currency:"₺"  }}</li>
               </ul>
               <div class="gap-2 mx-auto" style="margin-top: 5px;">
-                <section style="float: left">
+                <section style="float: left" *ngIf="Authenticated == true">
                   <button type="button" routerLink="/carupdate/{{ car.carId }}" class="btn btn-primary text-center" >
                     Güncelle
                   </button>

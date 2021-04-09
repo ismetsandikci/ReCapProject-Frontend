@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" style="margin-top: 10px; margin-bottom: 15px;">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
@@ -11,7 +11,7 @@
                             <label for="brandId">Marka</label>
                             <select id="brandId" formControlName="brandId" class="form-select" aria-label="Marka">
                                 <option *ngFor="let brand of brands" [ngValue]="brand.brandId">{{ brand.brandName }}</option>
-                              </select>
+                            </select>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -19,7 +19,7 @@
                             <label for="colorId">Renk</label>
                             <select id="colorId" formControlName="colorId" class="form-select" aria-label="Renk">
                                 <option *ngFor="let color of colors" [ngValue]="color.colorId" >{{ color.colorName }}</option>
-                              </select>
+                            </select>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -47,6 +47,12 @@
                         <div class="form-group">
                             <label for="description">Açıklama</label>
                             <input type="text" id="description" formControlName="description" class="form-control" placeholder="Açıklama" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-group">
+                            <label for="minFindeksScore">Findeks Puanı</label>
+                            <input type="number"  id="minFindeksScore" formControlName="minFindeksScore" class="form-control" placeholder="Findeks Puanı" />
                         </div>
                     </div>
                     <!--

@@ -1,0 +1,70 @@
+<div class="content">
+  <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title text-dark" style="text-align: center">
+            Profil Bilgileri
+          </h5>
+        </div>
+        <div class="card-body" >
+          <form [formGroup]="userUpdateForm">
+            <div class="mb-3">
+              <label for="firstName" class="form-label">Ad</label>
+              <input type="text" class="form-control" formControlName="firstName" id="firstName" />
+            </div>
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Soyad</label>
+              <input type="text" class="form-control" formControlName="lastName" id="lastName" />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">E-Posta</label>
+              <input type="text" class="form-control" formControlName="email" id="email" />
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-warning " (click)="update()" >
+            Güncelle
+          </button>
+          <button class="btn btn-danger float-end" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+            Şifreyi Yenile
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <app-customer-profile></app-customer-profile>
+    </div>
+  </div>
+</div>
+
+ 
+<!--changePasswordModal-->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="changePasswordTitle">Şifre Güncelle</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="changePasswordForm" >
+          <div class="mb-3">
+            <label for="oldPassword" class="form-label">Eski Şifre</label>
+            <input type="text" class="form-control" formControlName="oldPassword" id="oldPassword" />
+          </div>
+          <div class="mb-3">
+            <label for="newPassword" class="form-label">Yeni Şifre</label>
+            <input type="text"  class="form-control" formControlName="newPassword" id="newPassword" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+        <button class="btn btn-primary" (click)="changePassword()" data-bs-dismiss="modal" >Güncelle</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end changePasswordModal-->

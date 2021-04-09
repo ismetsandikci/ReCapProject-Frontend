@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from '../models/listResponseModel';
-import { Payment } from '../models/payment';
+import { CreditCard } from '../models/creditCard';
 import { Rental } from '../models/rental';
 import { ResponseModel } from '../models/responseModel';
 
@@ -18,6 +18,12 @@ export class PaymentService {
 
   constructor(private httpClient: HttpClient ) {}
 
+  pay():Observable<ResponseModel> {
+    let newPath = this.apiURL + "payments/pay";
+    return this.httpClient.get<ResponseModel>(newPath);
+  }
+
+  /*
   getall():Observable<ListResponseModel<Payment>> {
     let newPath = this.apiURL + "payments/getall";
     return this.httpClient.get<ListResponseModel<Payment>>(newPath);
@@ -40,4 +46,5 @@ export class PaymentService {
     this.carToBeRented=rental;
     this.amountPaye=amountOfPayment;
   }
+  */
 }

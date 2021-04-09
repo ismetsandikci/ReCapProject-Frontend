@@ -1,0 +1,34 @@
+<body class="text-center">
+  <main class="form-signin">
+    <form [formGroup]="loginForm">
+      <img class="mb-4" src="./../assets/images/logo.png" alt="" width="120" height="120">
+      <h1 class="h3 mb-3 fw-normal">Giriş Yap</h1>
+  
+      <div class="form-floating">
+        <input
+          formControlName="email" type="email"
+          class="form-control" id="email"
+          placeholder="Eposta"
+        />
+        <label for="email">Eposta</label>
+      </div>
+      <div class="form-floating">
+        <input
+          formControlName="password" type="password"
+          class="form-control" id="password"
+          placeholder="Password"
+        />
+        <label for="password">Parola</label>
+      </div>
+  
+      <div class="checkbox mb-3">
+        <label>
+          <!--<input type="checkbox" value="remember-me" /> Remember me-->
+        </label>
+      </div>
+      <button class="w-100 btn btn-lg btn-primary" type="submit" (click)="login()">
+        Giriş Yap
+      </button>
+    </form>
+  </main>
+</body>

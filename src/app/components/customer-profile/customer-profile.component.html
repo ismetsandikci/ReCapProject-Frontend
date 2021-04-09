@@ -1,0 +1,94 @@
+<button class="btn btn-fill btn-primary pull-rigth" (click)="addFindeksScore()" *ngIf="isThereFindeksScore == false">
+  Findeks Puanı Hesapla
+</button>
+
+<div class="card" *ngIf="isThereFindeksScore == true">
+  <div class="card-header">
+    <h5 class="title text-dark" style="text-align: center">
+      Findeks Bilgileri
+    </h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="findeksForm">
+      <div class="mb-3">
+        <label for="score" class="form-label">Findeks Puanı</label>
+        <input type="number" class="form-control" formControlName="score" id="score" readonly />
+      </div>
+    </form>
+  </div>
+  <!--
+  <div class="card-footer">
+    <button class="btn btn-warning" >
+      Güncelle
+    </button>
+  </div>
+  -->
+</div>
+
+
+
+
+
+<button class="btn btn-fill btn-success pull-rigth" data-bs-toggle="modal" data-bs-target="#addCustomerModal" *ngIf="IsCustomer == false">
+  Müşteri Kaydı Oluştur
+</button>
+
+<!--addCustomerModal-->
+<div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="AddCustomerTitle">Müşteri Ekle</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="customerAddForm" >
+          <div class="mb-3">
+            <label for="userId" class="form-label">Kullanıcı Id</label>
+            <input type="number" class="form-control" formControlName="userId" id="userId" readonly />
+          </div>
+          <div class="mb-3">
+            <label for="companyName" class="form-label">Şirket Adı</label>
+            <input type="text"  class="form-control" formControlName="companyName" id="companyName" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+        <button class="btn btn-primary" (click)="addCustomer()" data-bs-dismiss="modal" >Kaydet</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <!--end addCustomerModal-->
+
+<div class="card" *ngIf="IsCustomer == true">
+  <div class="card-header">
+    <h5 class="title text-dark" style="text-align: center">
+      Müşteri Bilgileri
+    </h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="customerUpdateForm">
+      <!--
+      <div class="mb-3">
+        <label for="customerId" class="form-label">Müşteri Id</label>
+        <input type="number" class="form-control" formControlName="customerId" id="customerId" readonly />
+      </div>
+      <div class="mb-3">
+        <label for="userId" class="form-label">Kullanıcı Id</label>
+        <input type="number" class="form-control" formControlName="userId" id="userId" readonly />
+      </div>
+      -->
+      <div class="mb-3">
+        <label for="companyName" class="form-label">Şirket Adı</label>
+        <input type="text"  class="form-control" formControlName="companyName" id="companyName" />
+      </div>
+    </form>
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-warning " (click)="update()" >
+      Güncelle
+    </button>
+  </div>
+</div>

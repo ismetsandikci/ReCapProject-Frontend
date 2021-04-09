@@ -6,6 +6,7 @@ export interface CarDto {
     modelYear: number;
     dailyPrice: number;
     description: string;
+    minFindeksScore: number; 
     previewImagePath:string;
   }
   

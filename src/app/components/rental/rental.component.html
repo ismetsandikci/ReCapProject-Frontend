@@ -49,13 +49,12 @@
             <td>{{ rental.modelYear }}</td>
             <td>{{ rental.dailyPrice | currency:"₺" }}</td>
             <td>{{ rental.userName }}</td>
-            <td>{{ rental.customerName }}</td>
+            <td>{{ rental.companyName }}</td>
             <td>{{ rental.rentDate | date: 'dd/MM/yyyy HH:mm' }}</td>
             <td>{{ rental.returnDate | date: 'dd/MM/yyyy HH:mm' }}</td>
             <td>{{ rental.amountPaye | currency:"₺" }}</td>
-  
         <td>
-          <button type="button" class="btn btn-primary btn-xs formButton" style="margin-right: 16px">
+          <button type="button" routerLink="/rentaldetails/{{rental.rentalId}}" class="btn btn-primary btn-xs formButton" style="margin-right: 16px">
             <i class="fas fa-pen"></i>
           </button>
           <button type="button" class="btn btn-danger btn-xs formButton">

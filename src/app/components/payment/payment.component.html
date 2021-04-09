@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card">
-    <div class="card-top border-bottom text-center">
+    <div class="card-header border-bottom text-center">
       <span id="logo">Ödeme Sayfası</span>
     </div>
     <div class="card-body">
@@ -16,26 +16,41 @@
                 <img src="https://img.icons8.com/color/48/000000/maestro.png" />
               </div>
             </div>
-            <form>
-              <span>Kart Üzerindeki İsim:</span>
-              <input type="text" id="cardName" name="cardName" [(ngModel)]="cardName" placeholder="Ad Soyad" required/>
-              <span>Kart Numarası:</span>
-              <input type="text" id="cardNumber" name="cardNumber" [(ngModel)]="cardNumber" placeholder="0000 0000 0000 0000" pattern="(?=.*[0-9]).{8,}"  />
+            <form [formGroup]="creditCardForm">
+              <div *ngIf="isCustomerCreditCards == true">
+                <span for="cardNameSurname">Kayıtlı Kartlar:</span>
+                <select #customerCreditCardsSelect (change)='creditCardsSelected(customerCreditCardsSelect.value)' class="form-select" aria-label="Marka">
+                  <option value="KartSeciniz">Kart Seçiniz</option>
+                  <option *ngFor="let customerCreditCard of customerCreditCards" [ngValue]="customerCreditCard.creditCardId">
+                    {{ customerCreditCard.creditCardId }}-{{ customerCreditCard.cardNameSurname }}-{{ customerCreditCard.cardNumber }}-{{ customerCreditCard.cardExpiryDateMonth }}-{{ customerCreditCard.cardExpiryDateYear }}-{{ customerCreditCard.cardCvv }}
+                  </option>
+                </select>
+              </div>
+              <div>
+                <span for="cardNameSurname">Kart Üzerindeki İsim:</span>
+                <input type="text" formControlName="cardNameSurname" id="cardNameSurname" name="cardNameSurname" placeholder="Ad Soyad" required/>
+                <span for="cardNumber">Kart Numarası:</span>
+                <input type="text" formControlName="cardNumber" id="cardNumber" name="cardNumber" placeholder="0000 0000 0000 0000" pattern="(?=.*[0-9]).{8,}"  />
+              </div>
               <div class="row">
                 <div class="col-4">
-                  <span>Son Kullanma Tarihi:</span> 
-                  <input type="number" id="cardDateMonth" name="cardDateMonth" [(ngModel)]="cardDateMonth" placeholder="Ay" required/>
+                  <span for="cardExpiryDate">Son Kullanma Tarihi:</span> 
+                  <input type="text" formControlName="cardExpiryDateMonth" id="cardExpiryDateMonth" name="cardExpiryDateMonth" placeholder="Ay" required/>
                 </div>
                 <div class="col-4">
                 <br>
-                  <input type="number" id="cardDateYear" name="cardDateYear" [(ngModel)]="cardDateYear" placeholder="Yıl" required/>
+                  <input type="text" formControlName="cardExpiryDateYear" id="cardExpiryDateYear" name="cardExpiryDateYear" placeholder="Yıl" required/>
                 </div>
                 <div class="col-4">
-                    <span>CVV:</span> 
-                    <input type="number" id="cardCvv" name="cardCvv" [(ngModel)]="cardCvv" placeholder="CVV" required/>
+                    <span for="cardCvv">CVV:</span> 
+                    <input type="text" formControlName="cardCvv" id="cardCvv" name="cardCvv" placeholder="CVV" required/>
                 </div>
               </div>
             </form>
+            <div class="form-check" *ngIf="useRegisteredCard == false">
+              <input class="form-check-input" type="checkbox" value="" id="saveCreditCard" [(ngModel)]="saveCreditCard">
+              <label class="form-check-label" for="saveCreditCard">Kart Bilgilerimi Kaydet</label>
+            </div>
           </div>
         </div>
         <div class="col-md-5">
@@ -60,10 +75,10 @@
             </div>
             <div class="row lower">
               <div class="col text-left"><b>Ödenecek Tutar:</b></div>
-              <div class="col text-right"><b>{{ amountPaye | currency:"₺" }}</b></div>
+              <div class="col text-right"><b>{{ carToBeRented.amountPaye | currency:"₺" }}</b></div>
             </div>
             <div class="row lower"></div>
-            <button (click)="createPayment()" class="btn">Ödeme Yap</button>
+            <button (click)="rentalRequest()" class="btn">Ödeme Yap</button>
           </div>
         </div>
       </div>

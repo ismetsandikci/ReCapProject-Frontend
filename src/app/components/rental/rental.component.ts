@@ -19,10 +19,11 @@ export class RentalComponent implements OnInit {
   }
 
   getRentals() {
-    this.rentalDtoService.getRentals().subscribe(response=>{
-      this.rentals = response.data
-      this.dataLoaded = response.success;
-      console.log(this.rentals);
-    })
+    this.rentalDtoService.getRentalDetails().subscribe(
+      (response)=>{
+        this.rentals = response.data
+        this.dataLoaded = response.success;
+      }
+    )
   }
 }

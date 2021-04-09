@@ -1,20 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark col-md-12 mt-12">
-  <!-- Navbar content -->
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Rent A Car</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <img src="./../assets/images/logo.png" alt="" width="80" height="60">
+    
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="Authenticated == false">
+        <li class="nav-item">
+          <a routerLink="/cars" class="nav-link" >Araç Listesi</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="Authenticated == true">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Araçlar
@@ -25,16 +19,16 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a routerLink="/customers" class="nav-link" >Müşteriler</a >
-          </li>
-        <li>
           <a routerLink="/rentals" class="nav-link" >Kiralanan Araçlar</a>
+        </li>
+        <li class="nav-item" >
+          <a routerLink="/customers" class="nav-link">Müşteriler</a >
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Marka İşlemleri
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
             <li><a class="dropdown-item" routerLink="/brandList">Marka Listesi</a></li>
           </ul>
         </li>
@@ -47,15 +41,27 @@
           </ul>
         </li>
       </ul>
-      <form class="d-flex">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success" type="submit">Search</button>
+      <form class="d-flex" *ngIf="Authenticated == false" >
+        <button class="btn btn-danger" routerLink="/register">Kayıt Ol</button>
+        <button class="btn btn-primary" type="submit" routerLink="/login">
+          Giriş Yap
+        </button>
       </form>
+      <ul class="navbar-nav mb-2 mb-lg-0" *ngIf="Authenticated == true" >
+        <li class="nav-item dropdown right">
+          <a class="nav-link dropdown-toggle text-white"
+            id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+            {{ user?.firstName }} {{ user?.lastName }}
+          </a>
+          <ul class="dropdown-menu colorlb" aria-labelledby="navbarDropdown" style="background-color: rgb(243, 243, 243)" >
+            <li class="colorl">
+              <a class="dropdown-item" routerLink="/userprofile">Profil</a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" (click)="logOut()">Çıkış Yap</a></li>
+          </ul>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>

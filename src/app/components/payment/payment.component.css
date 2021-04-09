@@ -11,14 +11,15 @@ body {
     max-width: 1000px;
     margin: 0 auto;
     float: none;
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.card-top {
+.card-header {
     padding: 0.7rem 5rem
 }
 
-.card-top a {
+.card-header a {
     float: left;
     margin-top: 0.7rem
 }

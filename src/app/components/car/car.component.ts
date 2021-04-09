@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CarDto } from 'src/app/models/carDto';
 import { CarImage } from 'src/app/models/carImage';
+import { AuthService } from 'src/app/services/auth.service';
 import { CarImageService } from 'src/app/services/car-image.service';
 import { CarService } from 'src/app/services/car.service';
 
@@ -13,6 +14,7 @@ import { CarService } from 'src/app/services/car.service';
 export class CarComponent implements OnInit {
   dataLoaded = false;
   checkIfCarNull = false;
+  Authenticated: boolean;
 
   filterText="";
 
@@ -24,11 +26,13 @@ export class CarComponent implements OnInit {
   constructor(
     private carService: CarService,
     private activatedRoute: ActivatedRoute,
-    private carImageService: CarImageService
+    private carImageService: CarImageService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
+      this.isAuthenticated()
       if (params['brandId'] && params['colorId']) {
         this.getCarsByBrandAndColorId(params['brandId'], params['colorId']);
       } else if (params['brandId']) {
@@ -39,6 +43,14 @@ export class CarComponent implements OnInit {
         this.getCarsDetails();
       }
     });
+  }
+
+  isAuthenticated() {
+    if (this.authService.isAuthenticated()) {
+      this.Authenticated = true;
+    } else {
+      this.Authenticated = false;
+    }
   }
 
   getCarsAll() {
@@ -73,7 +85,7 @@ export class CarComponent implements OnInit {
 
   getById(carId: number) {
     this.carService.getById(carId).subscribe((response) => {
-      this.cars = response.data;
+      //this.cars = response.data;
       this.dataLoaded = response.success;
       this.setPreviewImages(this.cars);
 

@@ -5,12 +5,13 @@ export interface RentalDto{
     modelYear:number;
     dailyPrice:number;
     userName:string;
-    customerName:string;
+    companyName:string;
     rentDate:Date;
     returnDate:Date;
+    amountPaye:number;
     cardNameSurname:string;
     cardNumber:string;
-    cardExpiryDate:string;
+    cardExpiryDateMonth:string;
+    cardExpiryDateYear:string;
     cardCvv:string;
-    amountPaye:number;
 }

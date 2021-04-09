@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,7 +23,13 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CarAddComponent } from './components/car-add/car-add.component';
 import { BrandListComponent } from './components/brand-list/brand-list.component';
 import { ColorListComponent } from './components/color-list/color-list.component';
-import { CarUpdateComponent } from './components/car-update/car-update.component'
+import { CarUpdateComponent } from './components/car-update/car-update.component';
+import { LoginComponent } from './components/login/login.component'
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { CustomerProfileComponent } from './components/customer-profile/customer-profile.component';
+import { RegisterComponent } from './components/register/register.component';
+import { RentaldetailComponent } from './components/rentaldetail/rentaldetail.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +48,12 @@ import { CarUpdateComponent } from './components/car-update/car-update.component
     CarAddComponent,
     BrandListComponent,
     ColorListComponent,
-    CarUpdateComponent
+    CarUpdateComponent,
+    LoginComponent,
+    UserProfileComponent,
+    CustomerProfileComponent,
+    RegisterComponent,
+    RentaldetailComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +66,9 @@ import { CarUpdateComponent } from './components/car-update/car-update.component
     }),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

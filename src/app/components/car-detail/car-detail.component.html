@@ -4,72 +4,64 @@
       <div class="preview col-md-6">
         <div class="preview-pic tab-content">
           <div class="tab-pane active" id="1">
-            <img
-              src="{{ carImageUrl }}"
-              (click)="chooseOtherPhotoByImageUrl(carImageUrl)"
-            />
+            <img src="{{ carImageUrl }}" (click)="chooseOtherPhotoByImageUrl(carImageUrl)" />
           </div>
         </div>
         <ul class="preview-thumbnail nav nav-tabs">
           <li *ngFor="let carImage of carImages">
             <a data-target="#{{ carImage.carImageId }}" data-toggle="tab">
-              <img
-                src="{{ carImageUrlDefault }}{{ carImage.imagePath }}"
-                (click)="setParentImage(carImage)"
-              />
+              <img src="{{ carImageUrlDefault }}{{ carImage.imagePath }}" (click)="setParentImage(carImage)" />
             </a>
           </li>
         </ul>
       </div>
-      <div class="details col-md-6" *ngFor="let car of carD">
+      <div class="details col-md-6" *ngFor="let car of carDto">
         <h3 class="product-title">{{ car.brandName }} {{ car.modelName }}</h3>
-        <h5 class="sizes">
-          Model Yılı: <span> {{ car.modelYear }}</span>
-        </h5>
-        <h5 class="sizes">
-          Renk: <span>{{ car.colorName }}</span>
-        </h5>
-        <h5 class="price">
-          Ücret: <span>{{ car.dailyPrice | currency:"₺" }}</span>
-        </h5>
+        <h5 class="sizes">Model Yılı: <span> {{ car.modelYear }}</span></h5>
+        <h5 class="sizes">Renk: <span>{{ car.colorName }}</span></h5>
+        <h5 class="price"> Ücret: <span>{{ car.dailyPrice | currency:"₺" }}</span></h5>
         <h5 class="product-description">Açıklama: {{ car.description }}</h5>
+        <h5 class="product-description">Findeks Puanı: {{ car.minFindeksScore }}</h5>
         
-        <div class="form-group row">
-          <label for="customerSelect" class="col-3 col-form-label sizes">Müşteriler:</label>
-          <div class="col-9">
-            <select [(ngModel)]="customerId" id="customerSelect" class="form-select" aria-label="Müşteriler" >
-              <option [value]="customer.customerId" *ngFor="let customer of customers" >{{ customer.firstName }} {{ customer.lastName }} |
-                {{ customer.companyName }}</option>
-            </select>
+        <form [formGroup]="rentalCarForm" >
+          <div class="form-group row">
+            <label for="customerId" class="col-3 col-form-label sizes">Müşteriler:</label>
+            <div class="col-9">
+              <select id="customerId" formControlName="customerId" class="form-select" aria-label="Müşteriler" >
+                <option [value]="customer.customerId" *ngFor="let customer of customers" >{{ customer.firstName }} {{ customer.lastName }} |
+                  {{ customer.companyName }}</option>
+              </select>
+            </div>
           </div>
-        </div>
 
-        <div class="form-group row">
-          <label for="rentDate" class="col-3 col-form-label sizes">Alış Tarihi:</label>
-          <div class="col-9">
-            <input class="form-control" type="datetime-local" id="rentDate" [(ngModel)]="rentDate" >
+          <div class="form-group row">
+            <label for="rentDate" class="col-3 col-form-label sizes">Alış Tarihi:</label>
+            <div class="col-9">
+              <input class="form-control" type="datetime-local" id="rentDate" formControlName="rentDate" >
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="returnDate" class="col-3 col-form-label sizes">Teslim Tarihi:</label>
-          <div class="col-9">
-            <input class="form-control" type="datetime-local" id="returnDate" [(ngModel)]="returnDate">
+
+          <div class="form-group row">
+            <label for="returnDate" class="col-3 col-form-label sizes">Teslim Tarihi:</label>
+            <div class="col-9">
+              <input class="form-control" type="datetime-local" id="returnDate" formControlName="returnDate" >
+            </div>
           </div>
-        </div>
 
-        <div class="form-group row" *ngIf="amountPaye"> 
-          <label for="rentDate" class="col-3 col-form-label sizes">Ödenecek Miktar:</label>
-          <div class="col-9">
-            <h5 class="price"><span class="text-danger">{{amountPaye | currency:"₺"}}</span></h5>
+          <div class="form-group row" *ngIf="amountPaye">
+            <label for="amountPaye" class="col-3 col-form-label sizes">Ödenecek Miktar:</label>
+            <div class="col-9">
+              <h5 class="price"><span class="text-danger">{{amountPaye | currency:"₺"}}</span></h5>
+            </div>
           </div>
-        </div>
 
-        <div class="action">
-          <button (click)="createRentalRequest(car)" class="add-to-cart btn btn-default" type="button">
-            Kirala
-          </button>
-        </div>
-
+          <div class="form-group action">
+            <button (click)="createRentalRequest(car)" class="add-to-cart btn btn-default" type="button">
+              Kirala
+            </button>
+          </div>
+          
+        </form>
       </div>
     </div>
   </div>

@@ -1,0 +1,112 @@
+<div class="content">
+    <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="title text-dark" style="text-align: center">
+              Kiralama Detayları
+            </h5>
+          </div>
+          <div class="card-body" >
+            <form [formGroup]="rentalDetailForm">
+              <div class="row mb-4">
+                <label for="brandName" class="col-sm-3 col-form-label">Marka:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="brandName" id="brandName" readonly>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label for="modelName" class="col-sm-3 col-form-label">Model:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="modelName" id="modelName" readonly>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label for="modelYear" class="col-sm-3 col-form-label">Model Yılı:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="modelYear" id="modelYear" readonly>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label for="dailyPrice" class="col-sm-3 col-form-label">Günlük Ücret:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="dailyPrice" id="dailyPrice" readonly>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label for="userName" class="col-sm-3 col-form-label">Müşteri Adı:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="userName" id="userName" readonly>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label for="companyName" class="col-sm-3 col-form-label">Şirket Adı:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="companyName" id="companyName" readonly>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label for="rentDate" class="col-sm-3 col-form-label">Kiralama Tarihi:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="rentDate" id="rentDate" readonly>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label for="returnDate" class="col-sm-3 col-form-label">Teslim Tarihi:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="returnDate" id="returnDate" readonly>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label for="amountPaye" class="col-sm-3 col-form-label">Ödenen Ücret:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="amountPaye" id="amountPaye" readonly>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="title text-dark" style="text-align: center">
+              Ödeme Detayları
+            </h5>
+          </div>
+          <div class="card-body" >
+            <form [formGroup]="payDetailForm" >
+              <div class="row mb-4">
+                <label for="cardNameSurname" class="col-sm-3 col-form-label">Kart Üzerindeki İsim:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="cardNameSurname" id="cardNameSurname" readonly>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label for="cardNumber" class="col-sm-3 col-form-label">Kart Numarası:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="cardNumber" id="cardNumber" readonly>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label for="cardExpiryDate" class="col-sm-3 col-form-label">Son Kullanma Tarihi:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="cardExpiryDate" id="cardExpiryDate" readonly>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label for="cardCvv" class="col-sm-3 col-form-label">CVV:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="cardCvv" id="cardCvv" readonly>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarDto } from 'src/app/models/carDto';
 import { CarImage } from 'src/app/models/carImage';
@@ -6,9 +7,8 @@ import { CarService } from 'src/app/services/car.service';
 import { CarImageService } from 'src/app/services/car-image.service';
 import { ToastrService } from 'ngx-toastr';
 import { Rental } from 'src/app/models/rental';
-import { Customer } from 'src/app/models/customer';
+import { CustomerDto } from 'src/app/models/customerDto';
 import { CustomerService } from 'src/app/services/customer.service';
-import { PaymentService } from 'src/app/services/payment.service';
 import { RentalService } from 'src/app/services/rental.service';
 
 @Component({
@@ -17,27 +17,15 @@ import { RentalService } from 'src/app/services/rental.service';
   styleUrls: ['./car-detail.component.css'],
 })
 export class CarDetailComponent implements OnInit {
-  carImages: CarImage[] = [];
-  carD: CarDto[] = [];
 
+  rentalCarForm : FormGroup;
+  customers: CustomerDto[] = [];
+  amountPaye: number = 0;
+
+  carDto: CarDto[] = [];
+  carImages: CarImage[] = [];
   carImageUrlDefault: string = this.carImageService.apiImagesURL;
   carImageUrl: string = '';
-
-  //RentAl formu
-  customers: Customer[] = [];
-  customerId: Number;
-  customerName: string;
-  companyName: string;
-  customerEmail: string;
-  rentDate!: Date;
-  returnDate!: Date;
-  carDailyPrice: number;
-  amountPaye: number = 0;
-  //!RentAl formu
-
-  carId: number;
-  carBrandName: string;
-  carModelName: string;
 
   constructor(
     private carService: CarService,
@@ -46,8 +34,8 @@ export class CarDetailComponent implements OnInit {
     private router: Router,
     private customerService: CustomerService,
     private toastrService: ToastrService,
-    private paymentServise: PaymentService,
-    private rentalService: RentalService
+    private rentalService: RentalService,
+    private formBuilder:FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -56,22 +44,29 @@ export class CarDetailComponent implements OnInit {
         this.getCarDetailById(parameter['carId']);
         this.getCarImagesByCarId(parameter['carId']);
         this.getCustomersDetails();
+        this.createRentalForm();
       }
     });
   }
 
+  createRentalForm(){
+    this.rentalCarForm = this.formBuilder.group({
+      customerId:["",Validators.required],
+      rentDate:["",Validators.required],
+      returnDate:["",Validators.required]
+    })
+  }
+
   getCarDetailById(carId: number) {
-    this.carService.GetCarDetailsById(carId).subscribe((response) => {
-      this.carD = response.data;
+    this.carService.getCarDetailsById(carId).subscribe((response) => {
+      this.carDto = response.data;
     });
   }
 
   getCarImagesByCarId(carId: number) {
     this.carImageService.getImagesByCarId(carId).subscribe((response) => {
       this.carImages = response.data;
-
-      this.carImageUrl =
-        this.carImageUrlDefault + '' + this.carImages[0].imagePath;
+      this.carImageUrl = this.carImageUrlDefault + '' + this.carImages[0].imagePath;
     });
   }
 
@@ -110,67 +105,77 @@ export class CarDetailComponent implements OnInit {
   }
 
   createRentalRequest(car: CarDto) {
-    if (this.customerId === undefined) {
-      this.toastrService.warning('Müşteri bilgisini kontrol ediniz.');
-    } else if (this.rentDate === undefined || !this.rentDate) {
-      this.toastrService.warning('Alış Tarihi bilgisini kontrol ediniz.');
-    } else if (this.returnDate === undefined || !this.returnDate) {
-      this.toastrService.warning('Teslim Tarihi bilgisini kontrol ediniz.');
-    } else if (this.returnDate < this.rentDate) {
-      this.toastrService.error(
-        'Teslim Tarihi, Kiralama Tarihinde önce seçilemez.'
-      );
-    } else if (this.returnDate == this.rentDate) {
-      this.toastrService.error('Kiralama Tarihi ve Teslim Tarihi aynı olamaz.');
-    } else {
-      this.toastrService.info('Bilgileriniz kontrol ediliyor.');
+    if(this.rentalCarForm.valid){
+      let rentalCarModel=Object.assign({},this.rentalCarForm.value);
 
-      this.carId = car.carId;
-      this.carBrandName = car.brandName;
-      this.carModelName = car.modelName;
-      this.carDailyPrice = car.dailyPrice;
+      if (rentalCarModel.returnDate < rentalCarModel.rentDate) {
+        this.toastrService.error('Teslim Tarihi, Kiralama Tarihinde önce seçilemez.');
+      }
+      else if (rentalCarModel.returnDate == rentalCarModel.rentDate) {
+        this.toastrService.error('Kiralama Tarihi ve Teslim Tarihi aynı olamaz.');
+      }
+      else{
+        this.toastrService.info('Bilgileriniz kontrol ediliyor.');
+        
+        var date1 = new Date(rentalCarModel.returnDate.toString());
+        var date2 = new Date(rentalCarModel.rentDate.toString());
+        var difference = date1.getTime() - date2.getTime();
+        var numberOfDays = Math.ceil(difference / (1000 * 3600 * 24));
+        this.amountPaye = numberOfDays * car.dailyPrice;
 
-      let carToBeRented: Rental = {
-        carId: this.carId,
-        customerId: parseInt(this.customerId.toString()),
-        rentDate: this.rentDate,
-        returnDate: this.returnDate,
-      };
-
-      this.rentalService.checkCarStatus(carToBeRented).subscribe(
-        (response) => {
-          this.toastrService.success(response.message.toString(),'Tarihler Uygun');
-
-          var date1 = new Date(this.returnDate.toString());
-          var date2 = new Date(this.rentDate.toString());
-          var difference = date1.getTime() - date2.getTime();
-          var numberOfDays = Math.ceil(difference / (1000 * 3600 * 24));
-          this.amountPaye = numberOfDays * this.carDailyPrice;
-
-          if (this.amountPaye <= 0) {
-            this.router.navigate(['/cardetails/' + this.carId]);
-            this.toastrService.error('Araç listesine yönlendiriliyorsunuz','Hatalı işlem');
-          } 
-          else {
-            this.paymentServise.setRental(carToBeRented, this.amountPaye);
-
-            setTimeout(() => {
-              this.toastrService.success('Bilgileriniz onaylandı.');
-            }, 1000);
-
-            setTimeout(() => {
-              this.toastrService.info('Ödeme sayfasına yönlendiriliyorsunuz...','Ödeme İşlemleri');
-            }, 1000);
-
-            setTimeout(() => {
-              this.router.navigate(['/payments']);
-            }, 3000);
-          }
-        },
-        (error) => {
-          this.toastrService.error('The car cannot be rented on the requested dates.','Kiralama Başarısız');
+        if (this.amountPaye <= 0) {
+          this.router.navigate(['/cardetails/' + car.carId]);
+          this.toastrService.error('Araç listesine yönlendiriliyorsunuz','Hatalı işlem');
         }
-      );
+        else{
+          let carToBeRented: Rental = {
+            carId: car.carId,
+            customerId: Number(rentalCarModel.customerId),
+            rentDate: rentalCarModel.rentDate,
+            returnDate: rentalCarModel.returnDate,
+            amountPaye: Number(this.amountPaye.toString())
+          };
+          this.checkFindeksScoreSufficiency(carToBeRented);
+        }
+      }
     }
+    else{
+      this.toastrService.error("Formunuz eksik","Dikkat");
+    }
+  }
+
+  checkFindeksScoreSufficiency(carToBeRented:any){
+    this.rentalService.checkFindeksScoreSufficiency(carToBeRented).subscribe(
+      (response) => {
+        this.toastrService.success(response.message,'Findeks Puanı Sorgusu');
+        this.checkCarStatus(carToBeRented);
+      },
+      (responseError) => {
+        this.toastrService.error(responseError.error.message,'Findeks Puanı Sorgusu');
+      }
+    );
+  }
+
+  checkCarStatus(carToBeRented:any){
+    this.rentalService.checkCarStatus(carToBeRented).subscribe(
+      (response) => {
+        this.toastrService.success(response.message.toString(),'Tarihler Uygun');
+
+        this.rentalService.setRental(carToBeRented);
+
+        setTimeout(() => {
+          this.toastrService.success('Bilgileriniz onaylandı.');
+        }, 1000);
+        setTimeout(() => {
+          this.toastrService.info('Ödeme sayfasına yönlendiriliyorsunuz...','Ödeme İşlemleri');
+        }, 1000);
+        setTimeout(() => {
+          this.router.navigate(['/payments']);
+        }, 3000);
+      },
+      (responseError) => {
+        this.toastrService.error('The car cannot be rented on the requested dates.','Kiralama Başarısız');
+      }
+    );
   }
 }
