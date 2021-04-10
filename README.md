@@ -8,7 +8,7 @@ ReCapProject, SOLID prensiplerine bağlı kalınarak ve N-Katmalı mimari yapıs
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
 
-[![Angular](https://img.shields.io/badge/Angular-v11.2.3-red?style=for-the-badge&logo=angular)](https://angular.io)
+[![Angular](https://img.shields.io/badge/Angular-v11.2.4-red?style=for-the-badge&logo=angular)](https://angular.io)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-v5.0.0--beta2-blueviolet?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com)
 [![TypeScript](https://img.shields.io/badge/Typescript-blue?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 
